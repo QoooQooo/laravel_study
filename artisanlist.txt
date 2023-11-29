@@ -1,0 +1,3 @@
+artisan exec list
+
+php artisan make:controller admin/AdminLoginController
