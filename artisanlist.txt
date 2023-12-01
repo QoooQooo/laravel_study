@@ -26,3 +26,5 @@ $model->save();
 
 궁금해서 해봄
 //php artisan make:middleware TestMiddleware
+
+php artisan make:controller admin/HomeController

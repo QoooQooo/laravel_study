@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\AdminLoginController;    // 관리자 로그인 컨트롤러 호출
+use App\Http\Controllers\admin\HomeController;          // 홈 컨트롤러 호출
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,8 @@ Route::group(['prefix' => 'admin'], function(){
 
     Route::group(['middleware' => 'admin.auth'], function(){
 
-
+        Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
+        Route::get('/logout', [HomeController::class, 'logout'])->name('admin.logout');
 
     });
 
