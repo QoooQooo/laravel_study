@@ -18,5 +18,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+//관리자 로그인 페이지 임시 연결설정
+//Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin.login');
+
+
 //관리자 로그인 페이지 연결설정
-Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin.login');
+Route::group(['prefix' => 'admin'], function(){
+
+    Route::group(['middleware' => 'admin.guest'], function(){
+
+        Route::get('/login', [AdminLoginController::class, 'index'])->name('admin.login');
+        Route::post('/authenticate', [AdminLoginController::class, 'authenticate'])->name('admin.authenticate');
+
+    });
+
+    Route::group(['middleware' => 'admin.auth'], function(){
+
+
+
+    });
+
+});

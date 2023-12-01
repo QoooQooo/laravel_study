@@ -1,3 +1,28 @@
 artisan exec list
 
 php artisan make:controller admin/AdminLoginController
+
+php artisan migrate
+
+php artisan make:migration alter_users_table
+
+php artisan migrate
+
+php artisan tinker
+
+$model = new User();
+$model->name = 'Admin';
+$model->email = 'admin@example.com';
+$model->password = Hash::make('admin');
+$model->role = 1;
+$model->save();
+
+$model = new User();
+$model->name = 'felix';
+$model->email = 'felix@example.com';
+$model->password = Hash::make('yang1004');
+$model->role = 1;
+$model->save();
+
+궁금해서 해봄
+//php artisan make:middleware TestMiddleware
