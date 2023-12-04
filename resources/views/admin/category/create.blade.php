@@ -66,15 +66,17 @@
 $("#categoryForm").submit(function(event){
     event.preventDefault();
     var element = $(this);
-
+    $("button[type=submit]").prop('disabled', true);
     $.ajax({
         url: '{{ route("category.store") }}',
         type: 'post',
         data: element.serializeArray(),
         dateType: 'json',
         success: function(response){
-
+            $("button[type=submit]").prop('disabled', false);
             if(response["status"] == true) {
+
+                window.location.href="{{ route('category.index') }}";
 
                 $("#name")
                 .removeClass('is-invalid')
@@ -129,12 +131,14 @@ $("#categoryForm").submit(function(event){
 
 $("#name").change(function(){
     element = $(this);
+    $("button[type=submit]").prop('disabled', true);
     $.ajax({
         url: '{{ route("getSlug") }}',
         type: 'get',
         data: {title: element.val()},
         dateType: 'json',
         success: function(response){
+            $("button[type=submit]").prop('disabled', false);
             if (response["status"] == true) {
                 $("#slug").val(response["slug"]);
             }

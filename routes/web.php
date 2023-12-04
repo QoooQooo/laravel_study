@@ -47,6 +47,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/categories/create', [CategoryController::class, 'create'])->name('category.create');
         Route::post('/categories', [CategoryController::class, 'store'])->name('category.store');
 
+        //slug 단어요약
         Route::get('/getSlug', function(Request $request){
             $slug = '';
             if(!empty($request->title)){

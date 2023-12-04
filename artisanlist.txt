@@ -39,5 +39,5 @@ php artisan make:model Category
 
 php artisan make:factory CategoryFactory
 
-//목업데이터 기본형 셋팅후
+//목업데이터 기본형 셋팅후(CategoryFactory.php , DatebaseSeeder.php)
 php artisan db:seed
