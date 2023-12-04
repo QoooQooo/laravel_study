@@ -28,3 +28,13 @@ $model->save();
 //php artisan make:middleware TestMiddleware
 
 php artisan make:controller admin/HomeController
+
+php artisan make:migration create_categories_table
+
+php artisan migrate
+
+php artisan make:controller admin/CategoryController
+
+php artisan make:model Category
+
+php artisan make:factory CategoryFactory
