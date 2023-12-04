@@ -38,3 +38,6 @@ php artisan make:controller admin/CategoryController
 php artisan make:model Category
 
 php artisan make:factory CategoryFactory
+
+//목업데이터 기본형 셋팅후
+php artisan db:seed

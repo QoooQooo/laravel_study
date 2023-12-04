@@ -43,6 +43,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/logout', [HomeController::class, 'logout'])->name('admin.logout');
 
         //카테고리 페이지 연결설정
+        Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
         Route::get('/categories/create', [CategoryController::class, 'create'])->name('category.create');
         Route::post('/categories', [CategoryController::class, 'store'])->name('category.store');
 
