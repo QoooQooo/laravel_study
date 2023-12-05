@@ -98,8 +98,83 @@ class CategoryController extends Controller
         return view('admin.category.edit', compact('category'));
     }
 
-    public function update() {
+    public function update($categoryId, Request $request) {
 
+        $category = Category::find($categoryId);
+
+        if (empty($category)) {
+            return response()->json([
+                'status' => false,
+                'notFound' => true,
+                'message' => '해당 카테고리를 찾을 수 없습니다.'
+            ]);
+        }
+
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'slug' => 'required|unique:categories,slug,'.$category->id,
+        ]);
+
+        if ($validator->passes()) {
+
+            $category->name = $request->name;
+            $category->slug = $request->slug;
+            $category->status = $request->status;
+            $category->save();
+
+            $oldImage = $category->image;
+            $oldPath = public_path().'/uploads/category/'.$oldImage;
+            $oldThumbPath = public_path().'/uploads/category/thumb/'.$oldImage;
+
+            //이미지 저장
+            if (!empty($request->image_id)) {
+                $tempImage = TempImage::find($request->image_id);
+                $extArray = explode('.', $tempImage->name);
+                $ext = last($extArray);
+
+                $newImageName = $category->id.'-'.time().'.'.$ext;
+                $sPath = public_path().'/temp/'.$tempImage->name;
+                $dPath = public_path().'/uploads/category/'.$newImageName;
+
+                File::copy($sPath,$dPath);  //임시파일 보관 폴더로 복사
+
+                //썸네일 생성
+                $tPath = public_path().'/uploads/category/thumb/'.$newImageName;
+                $img = Image::make($sPath);
+                //$img->resize(200, 200);
+
+                // resize the image to a height of 200 and constrain aspect ratio (auto width)
+                /* $img->resize(null, 200, function ($constraint) {
+                    $constraint->aspectRatio();
+                }); */
+
+                // add callback functionality to retain maximal original image size
+                $img->fit(800, 600, function ($constraint) {
+                    $constraint->upsize();
+                });
+                $img->save($tPath);
+
+                File::delete($sPath);           //임시파일 삭제
+                File::delete($oldPath);         //이전파일 삭제
+                File::delete($oldThumbPath);    //이전파일썸네일 삭제
+
+                $category->image = $newImageName;
+                $category->save();
+            }
+
+            $request->session()->flash('success','카테고리 수정 성공');
+
+            return response()->json([
+                'status' => true,
+                'message' => '카테고리 수정 성공'
+            ]);
+
+        } else {
+            return response()->json([
+                'status' => FALSE,
+                'errors' => $validator->errors()
+            ]);
+        }
     }
 
     public function destroy() {

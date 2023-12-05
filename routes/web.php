@@ -48,6 +48,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/categories/create', [CategoryController::class, 'create'])->name('category.create');
         Route::post('/categories', [CategoryController::class, 'store'])->name('category.store');
         Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+        Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('category.update');
 
         //temp-images.create 이미지 임시저장 연결설정
         Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');

@@ -52,6 +52,7 @@ php artisan make:migration create_temp_images_table
 php artisan migrate
 
 //이미지 썸네일 생성을 위하여 설치
+//https://image.intervention.io/v2 이미지 수정 라이브러리참고
 composer require intervention/image
 
 

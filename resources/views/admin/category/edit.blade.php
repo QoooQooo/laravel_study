@@ -47,6 +47,11 @@
                                     </div>
                                 </div>
                             </div>
+                            @if (!empty($category->image))
+                                <div>
+                                    <img height="200" src="{{ asset('uploads/category/thumb/'.$category->image) }}" alt="">
+                                </div>
+                            @endif
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -61,7 +66,7 @@
                 </div>
             </div>
             <div class="pb-5 pt-3">
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">Update</button>
                 <a href="{{ route('category.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
             </div>
         </form>
@@ -77,10 +82,10 @@
 $("#categoryForm").submit(function(event){
     event.preventDefault();
     var element = $(this);
-    $("button[type=submit]").prop('disabled', true);        //무슨의미인지 잘 모르겠음
+    $("button[type=submit]").prop('disabled', true);    //무슨의미인지 잘 모르겠음
     $.ajax({
-        url: '{{ route("category.store") }}',
-        type: 'post',
+        url: '{{ route("category.update", $category->id) }}',
+        type: 'put',
         data: element.serializeArray(),
         dateType: 'json',
         success: function(response){
@@ -130,13 +135,10 @@ $("#categoryForm").submit(function(event){
                     .removeClass('invalid-feedback')
                     .html("");
                 }
-
             }
-
         }, error: function(jqXHR, exception){
             console.log("Something went wrong");
         }
-
     });
 });
 
