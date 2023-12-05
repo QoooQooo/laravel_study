@@ -41,3 +41,17 @@ php artisan make:factory CategoryFactory
 
 //목업데이터 기본형 셋팅후(CategoryFactory.php , DatebaseSeeder.php)
 php artisan db:seed
+
+//이미지 업로드
+php artisan make:controller admin/TempImagesController
+
+php artisan make:model TempImage
+
+php artisan make:migration create_temp_images_table
+
+php artisan migrate
+
+//이미지 썸네일 생성을 위하여 설치
+composer require intervention/image
+
+
