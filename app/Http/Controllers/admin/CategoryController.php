@@ -143,6 +143,7 @@ class CategoryController extends Controller
                 $img = Image::make($sPath);
                 //$img->resize(200, 200);
 
+                //https://image.intervention.io/v2 이미지 라이브러리 사용법 참고
                 // resize the image to a height of 200 and constrain aspect ratio (auto width)
                 /* $img->resize(null, 200, function ($constraint) {
                     $constraint->aspectRatio();
