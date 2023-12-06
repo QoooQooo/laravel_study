@@ -56,3 +56,10 @@ php artisan migrate
 composer require intervention/image
 
 
+php artisan make:migration create_sub_categories_table
+
+php artisan migrate
+
+php artisan make:controller admin/SubCategoryController
+
+php artisan make:model SubCategory

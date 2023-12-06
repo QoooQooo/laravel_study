@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\AdminLoginController;    // 관리자 로그인 �
 use App\Http\Controllers\admin\CategoryController;      // 관리자 카테고리 컨트롤러
 use App\Http\Controllers\admin\HomeController;          // 관리자 홈 컨트롤러
 use App\Http\Controllers\admin\TempImagesController;    // 관리자 임시 이미지 컨트롤러
+use App\Http\Controllers\admin\SubCategoryController;   // 관리자 하위 카테고리 컨트롤러
 use Illuminate\Http\Request;
 
 /*
@@ -50,6 +51,9 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('category.edit');
         Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('category.update');
         Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('category.delete');
+
+        //하위 카테고리 페이지 연결설정
+        Route::get('/sub-categories/create', [SubCategoryController::class, 'create'])->name('category.create');
 
         //temp-images.create 이미지 임시저장 연결설정
         Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
