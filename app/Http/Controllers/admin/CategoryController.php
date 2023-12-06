@@ -112,7 +112,7 @@ class CategoryController extends Controller
 
         $validator = Validator::make($request->all(),[
             'name' => 'required',
-            'slug' => 'required|unique:categories,slug,'.$category->id,
+            'slug' => 'required|unique:categories,slug,'.$category->id.',id',
         ]);
 
         if ($validator->passes()) {
@@ -178,7 +178,29 @@ class CategoryController extends Controller
         }
     }
 
-    public function destroy() {
+    public function destroy($categoryId, Request $request) {
+
+        $category = Category::find($categoryId);
+
+        if (empty($category)) {
+            return redirect()->route('category.index');
+        }
+
+        $dImage = $category->image;
+        $dPath = public_path().'/uploads/category/'.$dImage;
+        $dThumbPath = public_path().'/uploads/category/thumb/'.$dImage;
+        File::delete($dPath);         //이전파일 삭제
+        File::delete($dThumbPath);    //이전파일썸네일 삭제
+
+        $category->delete();
+
+        $request->session()->flash('success', '카테고리 삭제 성공');
+
+        return response()->json([
+            'status' => true,
+            'message' => '카테고리 삭제 성공',
+        ]);
 
     }
+
 }
