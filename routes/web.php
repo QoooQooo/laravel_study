@@ -53,7 +53,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('category.delete');
 
         //하위 카테고리 페이지 연결설정
-        Route::get('/sub-categories/create', [SubCategoryController::class, 'create'])->name('category.create');
+        Route::get('/sub-categories/create', [SubCategoryController::class, 'create'])->name('sub-category.create');
 
         //temp-images.create 이미지 임시저장 연결설정
         Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
