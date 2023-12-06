@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin'], function(){
 
         //하위 카테고리 페이지 연결설정
         Route::get('/sub-categories/create', [SubCategoryController::class, 'create'])->name('sub-category.create');
+        Route::post('/sub-categories', [SubCategoryController::class, 'store'])->name('sub-category.store');
 
         //temp-images.create 이미지 임시저장 연결설정
         Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
