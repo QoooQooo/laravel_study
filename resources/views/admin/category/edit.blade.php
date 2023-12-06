@@ -107,6 +107,11 @@ $("#categoryForm").submit(function(event){
                 .html("");
 
             } else {
+
+                if (response['notFound'] == true) {
+                    window.location.href="{{ route('category.index') }}";
+                }
+
                 var errors = response['errors'];
                 if(errors['name']) {
                     $("#name")

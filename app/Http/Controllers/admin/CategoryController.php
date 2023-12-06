@@ -103,6 +103,7 @@ class CategoryController extends Controller
         $category = Category::find($categoryId);
 
         if (empty($category)) {
+            $request->session()->flash('error','해당 카테고리를 찾을 수 없습니다.');
             return response()->json([
                 'status' => false,
                 'notFound' => true,
@@ -183,7 +184,12 @@ class CategoryController extends Controller
         $category = Category::find($categoryId);
 
         if (empty($category)) {
-            return redirect()->route('category.index');
+            //return redirect()->route('category.index');
+            $request->session()->flash('error', '해당 카테고리를 찾을 수 없음');
+            return response()->json([
+                'status' => true,
+                'message' => '해당 카테고리를 찾을 수 없음',
+            ]);
         }
 
         $dImage = $category->image;
