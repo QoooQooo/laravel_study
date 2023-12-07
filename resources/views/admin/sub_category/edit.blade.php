@@ -23,42 +23,41 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="name">Category</label>
+                                <select name="category" id="category" class="form-control">
+                                    <option value="">카테고리를 선택하세요</option>
+                                    @if ($categories->isNotEmpty())
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}" {{ ($subCategory->category_id == $category->id) ? 'selected' : '' }}>{{ $category->name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                <p></p>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="name">Name</label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Name" value="{{ $category->name }}">
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Name" value="{{ $subCategory->name }}">
                                 <p></p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="slug">Slug</label>
-                                <input type="text" readonly name="slug" id="slug" class="form-control" placeholder="Slug" value="{{ $category->slug }}">
+                                <input type="text" readonly name="slug" id="slug" class="form-control" placeholder="Slug" value="{{ $subCategory->slug }}">
                                 <p></p>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <input type="text" id="image_id" name="image_id" value="">
-                                <label for="image">Image</label>
-                                <div id="image" class="dropzone dz-clickable">
-                                    <div class="dz-message needsclick">
-                                        <br>Drop files here or click to upload.<br><br>
-                                    </div>
-                                </div>
-                            </div>
-                            @if (!empty($category->image))
-                                <div>
-                                    <img height="200" src="{{ asset('uploads/category/thumb/'.$category->image) }}" alt="">
-                                </div>
-                            @endif
-                        </div>
+
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="status">Status</label>
                                 <select name="status" id="status" class="form-control">
-                                    <option {{ ($category->status == 1) ? 'selected' : '' }} value="1">사용</option>
-                                    <option {{ ($category->status == 0) ? 'selected' : '' }} value="0">사용안함</option>
+                                    <option {{ ($subCategory->status == 1) ? 'selected' : '' }} value="1">사용</option>
+                                    <option {{ ($subCategory->status == 0) ? 'selected' : '' }} value="0">사용안함</option>
                                 </select>
                             </div>
                         </div>
@@ -110,6 +109,7 @@ $("#categoryForm").submit(function(event){
 
                 if (response['notFound'] == true) {
                     window.location.href="{{ route('sub-category.index') }}";
+                    return false;
                 }
 
                 var errors = response['errors'];

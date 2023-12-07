@@ -66,11 +66,84 @@ class SubCategoryController extends Controller
         }
     }
 
-    public function edit($id, Request $request) {
+    public function edit($subCategoryId, Request $request) {
+
+        $subCategory = SubCategory::find($subCategoryId);
+        $categories = Category::orderBy('name', 'ASC')->get();
+        $data['categories'] = $categories;
+        $data['subCategory'] = $subCategory;
+
+        if (empty($subCategory)) {
+            $request->session()->flash('error','해당 하위 카테고리를 찾을 수 없습니다.');
+            return redirect()->route('sub-category.index');
+        }
+
+        return view('admin.sub_category.edit', $data);
+    }
+
+    public function update($subCategoryId, Request $request) {
+
+        $subCategory = SubCategory::find($subCategoryId);
+
+        if (empty($subCategory)) {
+            $request->session()->flash('error','해당 하위 카테고리를 찾을 수 없습니다.');
+            return response()->json([
+                'status' => false,
+                'notFound' => true,
+                'message' => '해당 하위 카테고리를 찾을 수 없습니다.'
+            ]);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'slug' => 'required|unique:sub_categories,slug,'.$subCategory->id.',id',
+            'category' => 'required',
+            'status' => 'required'
+        ]);
+
+        if ($validator->passes()) {
+
+            $subCategory->name = $request->name;
+            $subCategory->slug = $request->slug;
+            $subCategory->status = $request->status;
+            $subCategory->category_id = $request->category;
+            $subCategory->save();
+
+            $request->session()->flash('success','하위 카테고리 수정 성공');
+
+            return response([
+                'status' => true,
+                'message' => '하위 카테고리 수정 성공'
+            ]);
+
+        } else {
+            return response([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
 
     }
 
-    public function update() {
+    public function destroy($subCategoryId, Request $request) {
+        $subCategory = SubCategory::find($subCategoryId);
 
+        if (empty($subCategory)) {
+            //return redirect()->route('category.index');
+            $request->session()->flash('error', '해당 하위 카테고리를 찾을 수 없음');
+            return response()->json([
+                'status' => true,
+                'message' => '해당 하위 카테고리를 찾을 수 없음',
+            ]);
+        }
+
+        $subCategory->delete();
+
+        $request->session()->flash('success', '하위 카테고리 삭제 성공');
+
+        return response()->json([
+            'status' => true,
+            'message' => '하위 카테고리 삭제 성공',
+        ]);
     }
 }
