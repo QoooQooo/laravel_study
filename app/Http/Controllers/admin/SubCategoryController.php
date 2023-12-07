@@ -64,6 +64,13 @@ class SubCategoryController extends Controller
                 'errors' => $validator->errors()
             ]);
         }
+    }
+
+    public function edit($id, Request $request) {
+
+    }
+
+    public function update() {
 
     }
 }
