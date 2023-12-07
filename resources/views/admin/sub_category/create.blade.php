@@ -91,7 +91,7 @@ $("#subCategoryForm").submit(function(event){
             $("button[type=submit]").prop('disabled', false);
             if(response["status"] == true) {
 
-                /* window.location.href="{{ route('category.index') }}";
+                window.location.href="{{ route('sub-category.index') }}";
 
                 $("#name")
                 .removeClass('is-invalid')
@@ -103,7 +103,13 @@ $("#subCategoryForm").submit(function(event){
                 .removeClass('is-invalid')
                 .siblings('p')
                 .removeClass('invalid-feedback')
-                .html(""); */
+                .html("");
+
+                $("#category")
+                .removeClass('is-invalid')
+                .siblings('p')
+                .removeClass('invalid-feedback')
+                .html("");
 
             } else {
                 var errors = response['errors'];

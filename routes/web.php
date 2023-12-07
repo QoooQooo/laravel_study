@@ -53,6 +53,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('category.delete');
 
         //하위 카테고리 페이지 연결설정
+        Route::get('/sub-categories', [SubCategoryController::class, 'index'])->name('sub-category.index');
         Route::get('/sub-categories/create', [SubCategoryController::class, 'create'])->name('sub-category.create');
         Route::post('/sub-categories', [SubCategoryController::class, 'store'])->name('sub-category.store');
 

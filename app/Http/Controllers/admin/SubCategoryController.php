@@ -10,8 +10,21 @@ use Illuminate\Support\Facades\Validator;
 
 class SubCategoryController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+        //latest('abc') 설명 : order by abc desc
+        //$subCategories = SubCategory::latest('id');
+        $subCategories = SubCategory::select('sub_categories.*','categories.name as categoryName')
+                            ->latest('sub_categories.id')
+                            ->leftJoin('categories','categories.id','sub_categories.category_id');
 
+        if (!empty($request->get('keyword'))) {
+            $subCategories = $subCategories->where('sub_categories.name', 'like', '%'.$request->get('keyword').'%');
+            $subCategories = $subCategories->orwhere('categories.name', 'like', '%'.$request->get('keyword').'%');
+        }
+
+        $subCategories = $subCategories->paginate(10);
+
+        return view('admin.sub_category.list', compact('subCategories'));
     }
 
     public function create() {
