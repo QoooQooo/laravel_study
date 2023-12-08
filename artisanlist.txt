@@ -63,3 +63,12 @@ php artisan migrate
 php artisan make:controller admin/SubCategoryController
 
 php artisan make:model SubCategory
+
+php artisan make:migration create_brands_table
+
+php artisan migrate
+
+php artisan make:controller admin/BrandController
+
+php artisan make:model Brand
+

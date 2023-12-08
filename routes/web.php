@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\CategoryController;      // 관리자 카테고�
 use App\Http\Controllers\admin\HomeController;          // 관리자 홈 컨트롤러
 use App\Http\Controllers\admin\TempImagesController;    // 관리자 임시 이미지 컨트롤러
 use App\Http\Controllers\admin\SubCategoryController;   // 관리자 하위 카테고리 컨트롤러
+use App\Http\Controllers\admin\BrandController;         // 관리자 브랜드 컨트롤러
 use Illuminate\Http\Request;
 
 /*
@@ -59,6 +60,14 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/sub-categories/{category}/edit', [SubCategoryController::class, 'edit'])->name('sub-category.edit');
         Route::put('/sub-categories/{category}', [SubCategoryController::class, 'update'])->name('sub-category.update');
         Route::delete('/sub-categories/{category}', [SubCategoryController::class, 'destroy'])->name('sub-category.delete');
+
+        //브랜드 페이지 연결설정
+        Route::get('/brands', [BrandController::class, 'index'])->name('brands.index');
+        Route::get('/brands/create', [BrandController::class, 'create'])->name('brands.create');
+        Route::post('/brands', [BrandController::class, 'store'])->name('brands.store');
+        Route::get('/brands/{brand}/edit', [BrandController::class, 'edit'])->name('brands.edit');
+        Route::put('/brands/{brand}', [BrandController::class, 'update'])->name('brands.update');
+        Route::delete('/brands/{brand}', [BrandController::class, 'destroy'])->name('brands.delete');
 
         //temp-images.create 이미지 임시저장 연결설정
         Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
