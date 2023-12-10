@@ -8,6 +8,8 @@ use App\Http\Controllers\admin\HomeController;          // 관리자 홈 컨트�
 use App\Http\Controllers\admin\TempImagesController;    // 관리자 임시 이미지 컨트롤러
 use App\Http\Controllers\admin\SubCategoryController;   // 관리자 하위 카테고리 컨트롤러
 use App\Http\Controllers\admin\BrandController;         // 관리자 브랜드 컨트롤러
+use App\Http\Controllers\admin\ProductController;       // 관리자 프로덕트 컨트롤러
+use App\Http\Controllers\admin\ProductSubCategoryController;       // 관리자 프로덕트 서브카테고리 불러오기컨트롤러
 use Illuminate\Http\Request;
 
 /*
@@ -68,6 +70,12 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/brands/{brand}/edit', [BrandController::class, 'edit'])->name('brands.edit');
         Route::put('/brands/{brand}', [BrandController::class, 'update'])->name('brands.update');
         Route::delete('/brands/{brand}', [BrandController::class, 'destroy'])->name('brands.delete');
+
+        //프로덕트 페이지 연결설정
+        Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+
+        //프로덕트 페이지에서 카테고리 선택에 따른 하위 카테고리 불러오기 연결설정
+        Route::get('/product-subcategories', [ProductSubCategoryController::class, 'index'])->name('product-subcategories.index');
 
         //temp-images.create 이미지 임시저장 연결설정
         Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');

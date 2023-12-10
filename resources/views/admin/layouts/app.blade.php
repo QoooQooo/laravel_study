@@ -10,10 +10,11 @@
 		<link rel="stylesheet" href="{{ asset('admin-assets/plugins/fontawesome-free/css/all.min.css') }}">
 		<!-- Theme style -->
 		<link rel="stylesheet" href="{{ asset('admin-assets/css/adminlte.min.css') }}">
-
         <link rel="stylesheet" href="{{ asset('admin-assets/plugins/dropzone/min/dropzone.min.css') }}">
-
 		<link rel="stylesheet" href="{{ asset('admin-assets/css/custom.css') }}">
+
+        @yield('customCss')
+
         <meta name="csrf-token" content="{{ csrf_token() }}">
 	</head>
 	<body class="hold-transition sidebar-mini">
