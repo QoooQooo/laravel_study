@@ -26,7 +26,7 @@ class ProductController extends Controller
             'title' => 'required',
             'slug' => 'required|unique:products',
             'price' => 'required|numeric',
-            'sku' => 'required',
+            'sku' => 'required|unique:products',
             'track_qty' => 'required|in:Yes,No',
             'category' => 'required|numeric',
             'is_featured' => 'required|in:Yes,No'
@@ -53,9 +53,16 @@ class ProductController extends Controller
             $product->status = $request->status;
             $product->category_id = $request->category;
             $product->sub_category_id = $request->sub_category;
-            $product->brand_id = $request->brand;
+            $product->brand_id = $request->brands;
             $product->is_featured = $request->is_featured;
             $product->save();
+
+            $request->session()->flash('success', '상품등록 성공');
+
+            return response()->json([
+                'status' => true,
+                'errors' => '상품둥록 성공'
+            ]);
 
         } else {
             return response()->json([

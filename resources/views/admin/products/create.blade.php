@@ -226,12 +226,15 @@ $("#title").change(function(){
 $("#productForm").submit(function(event){
     event.preventDefault();
     var formArray = $(this).serializeArray();
+    $("button[type='submit']").prop('disabled',true);
+
     $.ajax({
         url: '{{ route('products.store') }}',
         type: 'post',
         data: formArray,
         dataType: 'json',
         success: function(response){
+            $("button[type='submit']").prop('disabled',false);
             if (response['status'] == true) {
 
             } else {

@@ -85,3 +85,11 @@ php artisan make:model Product
 php artisan make:model ProductImage
 
 php artisan make:controller admin/ProductSubCategoryController
+
+php artisan make:migration alter_products_table
+
+php artisan migrate
+
+php artisan make:migration alter_products_table
+
+php artisan migrate
