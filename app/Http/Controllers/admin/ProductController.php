@@ -14,8 +14,22 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
 
+        //$products = Product::latest('id')->with('product_images')->paginate(10);
+        $products = Product::latest('id')->with('product_images');
+
+        //if ($request->get('keyword') != "") {
+        if (!empty($request->get('keyword'))) {
+            $products = $products->where('title', 'like', '%'.$request->get('keyword').'%');
+            //$products = $products->where('title', 'like', '%'.$request->keyword.'%');     //결과같음
+        }
+
+        $products = $products->paginate(10);
+
+        $data['products'] = $products;
+
+        return view('admin.products.list', compact('products'));
     }
 
     public function create() {
@@ -88,18 +102,18 @@ class ProductController extends Controller
 
                     // 큰이미지
                     $sourcePath = public_path().'/temp/'.$tempImageInfo->name;
-                    $destPath = public_path().'/uploads/product/large/'.$tempImageInfo->name;
+                    $destLPath = public_path().'/uploads/product/large/'.$imageName;
                     $image = Image::make($sourcePath);
                     $image->resize(1400, null, function ($constraint) {
                         $constraint->aspectRatio();
                     });
-                    $image->save($destPath);
+                    $image->save($destLPath);
 
                     // 작은이미지
-                    $destPath = public_path().'/uploads/product/small/'.$tempImageInfo->name;
+                    $destSPath = public_path().'/uploads/product/small/'.$imageName;
                     $image = Image::make($sourcePath);
                     $image->fit(300,300);
-                    $image->save($destPath);
+                    $image->save($destSPath);
 
                 }
             }
