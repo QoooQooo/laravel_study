@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\TempImage;
+use App\Models\SubCategory;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -123,6 +124,83 @@ class ProductController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => '상품둥록 성공'
+            ]);
+
+        } else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
+    }
+
+    public function edit($id, Request $request) {
+
+        $data = [];
+
+        $product = Product::find($id);
+        $categories = Category::orderBy('name', 'ASC')->get();
+        $subCategories = SubCategory::where('category_id', $product->category_id)->get();
+        $brands = Brand::orderBy('name', 'ASC')->get();
+        $productImages = ProductImage::where('product_id',$product->id)->get();
+
+        $data['product'] = $product;
+        $data['categories'] = $categories;
+        $data['subCategories'] = $subCategories;
+        $data['brands'] = $brands;
+        $data['productImages'] = $productImages;
+
+        return view('admin.products.edit', $data);
+    }
+
+    public function update($id, Request $request) {
+
+        $product = Product::find($id);
+        if (empty($product)) {
+            //$request->session()->flash('error','해당 상품을 찾을 수 없습니다.');      //같은결과
+            return redirect()->route('products.index')->with('error','해당 상품을 찾을 수 없습니다.');
+        }
+
+        $rules = [
+            'title' => 'required',
+            'slug' => 'required|unique:products,slug,'.$product->id.',id',
+            'price' => 'required|numeric',
+            'sku' => 'required|unique:products,sku,'.$product->id.',id',
+            'track_qty' => 'required|in:Yes,No',
+            'category' => 'required|numeric',
+            'is_featured' => 'required|in:Yes,No'
+        ];
+
+        if (!empty($request->track_qty) && $request->track_qty == 'Yes') {
+            $rules['qty'] = 'required|numeric';
+        }
+
+        $validator = Validator::make($request->all(),$rules);
+
+        if ($validator->passes()) {
+
+            $product->title = $request->title;
+            $product->slug = $request->slug;
+            $product->description = $request->description;
+            $product->price = $request->price;
+            $product->compare_price = $request->compare_price;
+            $product->sku = $request->sku;
+            $product->barcode = $request->barcode;
+            $product->track_qty = $request->track_qty;
+            $product->qty = $request->qty;
+            $product->status = $request->status;
+            $product->category_id = $request->category;
+            $product->sub_category_id = $request->sub_category;
+            $product->brand_id = $request->brands;
+            $product->is_featured = $request->is_featured;
+            $product->save();
+
+
+            $request->session()->flash('success', '상품수정 성공');
+
+            return response()->json([
+                'status' => true,
+                'message' => '상품수정 성공'
             ]);
 
         } else {

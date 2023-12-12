@@ -75,6 +75,8 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/products', [ProductController::class, 'index'])->name('products.index');
         Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
         Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+        Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+        Route::put('/products/{brand}', [ProductController::class, 'update'])->name('products.update');
 
         //프로덕트 페이지에서 카테고리 선택에 따른 하위 카테고리 불러오기 연결설정
         Route::get('/product-subcategories', [ProductSubCategoryController::class, 'index'])->name('product-subcategories.index');
