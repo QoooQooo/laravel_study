@@ -14,7 +14,7 @@ class TempImagesController extends Controller
 
         if (!empty($image)) {
             $ext = $image->getClientOriginalExtension();
-            $newName = time().'.'.$ext;
+            $newName = rand(100000,999999).time().'.'.$ext;
 
             $tempImage = new TempImage();
             $tempImage->name = $newName;
@@ -32,7 +32,7 @@ class TempImagesController extends Controller
             return response()->json([
                 'status' => true,
                 'image_id' => $tempImage->id,
-                'imagePath' => asset('/temp/thumb/'.$newName),
+                'ImagePath' => asset('/temp/thumb/'.$newName),
                 'message' => '이미지 업로드 성공'
             ]);
         }

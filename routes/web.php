@@ -72,6 +72,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::delete('/brands/{brand}', [BrandController::class, 'destroy'])->name('brands.delete');
 
         //프로덕트 페이지 연결설정
+        Route::get('/products', [ProductController::class, 'index'])->name('products.index');
         Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
         Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 

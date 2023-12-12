@@ -77,7 +77,7 @@
 $("#categoryForm").submit(function(event){
     event.preventDefault();
     var element = $(this);
-    $("button[type=submit]").prop('disabled', true);        //무슨의미인지 잘 모르겠음
+    $("button[type=submit]").prop('disabled', true);        //무슨의미인지 잘 모르겠음 -> 알게됨
     $.ajax({
         url: '{{ route("category.store") }}',
         type: 'post',
