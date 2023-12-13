@@ -1,16 +1,17 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
-use App\Http\Controllers\admin\AdminLoginController;    // 관리자 로그인 컨트롤러
-use App\Http\Controllers\admin\CategoryController;      // 관리자 카테고리 컨트롤러
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\ProductImageController;  // 관리자 이미지 수정 컨트롤러
 use App\Http\Controllers\admin\HomeController;          // 관리자 홈 컨트롤러
+use App\Http\Controllers\admin\AdminLoginController;    // 관리자 로그인 컨트롤러
+use App\Http\Controllers\admin\BrandController;         // 관리자 브랜드 컨트롤러
+use App\Http\Controllers\admin\CategoryController;      // 관리자 카테고리 컨트롤러
+use App\Http\Controllers\admin\ProductController;       // 관리자 프로덕트 컨트롤러
 use App\Http\Controllers\admin\TempImagesController;    // 관리자 임시 이미지 컨트롤러
 use App\Http\Controllers\admin\SubCategoryController;   // 관리자 하위 카테고리 컨트롤러
-use App\Http\Controllers\admin\BrandController;         // 관리자 브랜드 컨트롤러
-use App\Http\Controllers\admin\ProductController;       // 관리자 프로덕트 컨트롤러
 use App\Http\Controllers\admin\ProductSubCategoryController;       // 관리자 프로덕트 서브카테고리 불러오기컨트롤러
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +81,10 @@ Route::group(['prefix' => 'admin'], function(){
 
         //프로덕트 페이지에서 카테고리 선택에 따른 하위 카테고리 불러오기 연결설정
         Route::get('/product-subcategories', [ProductSubCategoryController::class, 'index'])->name('product-subcategories.index');
+
+        //상품수정시 이미지 수정
+        Route::post('/product-images/update', [ProductImageController::class, 'update'])->name('product-images.update');
+        Route::delete('/product-images', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
 
         //temp-images.create 이미지 임시저장 연결설정
         Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');

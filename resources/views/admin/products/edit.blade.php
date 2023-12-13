@@ -329,9 +329,10 @@ const dropzone = $("#image").dropzone({
         });
     },
     */
-    url: "{{ route('temp-images.create') }}",
+    url: "{{ route('product-images.update') }}",
     maxfiles: 10,
     paramName: 'image',
+    params: {'product_id': '{{ $product->id }}'},
     addRemoveLinks: true,
     acceptedFiles: "image/jpeg, image/png, image/gif",
     headers: {
@@ -359,6 +360,19 @@ const dropzone = $("#image").dropzone({
 
 function deleteImage(id) {
     $("#image-row-"+id).remove();
+    if (confirm("이미지를 삭제 하시겠습니까?")) {
+        $.ajax({
+            url: '{{ route("product-images.destroy") }}',
+            type: 'delete',
+            data: {id:id},
+            success: function(response) {
+                /* if(response.status == true) {
+                    alert(response.message);
+                } */
+                alert(response.message);
+            }
+        });
+    }
 }
 
 </script>

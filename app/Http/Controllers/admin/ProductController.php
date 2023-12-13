@@ -136,14 +136,18 @@ class ProductController extends Controller
 
     public function edit($id, Request $request) {
 
-        $data = [];
-
         $product = Product::find($id);
+        if (empty($product)) {
+            //$request->session->flash('error', '상품을 찾을 수 없습니다.');        //같은결과
+            return redirect()->route('products.index')->with('error', '상품을 찾을 수 없습니다.');
+        }
+
         $categories = Category::orderBy('name', 'ASC')->get();
         $subCategories = SubCategory::where('category_id', $product->category_id)->get();
         $brands = Brand::orderBy('name', 'ASC')->get();
         $productImages = ProductImage::where('product_id',$product->id)->get();
 
+        $data = [];
         $data['product'] = $product;
         $data['categories'] = $categories;
         $data['subCategories'] = $subCategories;
@@ -156,10 +160,10 @@ class ProductController extends Controller
     public function update($id, Request $request) {
 
         $product = Product::find($id);
-        if (empty($product)) {
+        /* if (empty($product)) {
             //$request->session()->flash('error','해당 상품을 찾을 수 없습니다.');      //같은결과
             return redirect()->route('products.index')->with('error','해당 상품을 찾을 수 없습니다.');
-        }
+        } */
 
         $rules = [
             'title' => 'required',
