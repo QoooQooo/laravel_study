@@ -11,6 +11,7 @@ use App\Models\SubCategory;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -213,6 +214,38 @@ class ProductController extends Controller
                 'errors' => $validator->errors()
             ]);
         }
+    }
+
+    public function destroy($id, Request $request) {
+        $product = Product::find($id);
+
+        if (empty($product)) {
+            $request->session()->flash('error', '상품을 찾을 수 없습니다.');
+            return response()->json([
+                'status' => false,
+                'notFound' => true,
+            ]);
+        }
+        $productImages = ProductImage::where('product_id', $id)->get();
+
+        if (!empty($productImages)) {
+            foreach ($productImages as $productImage) {
+                File::delete(public_path('uploads/product/large/'.$productImage->image));
+                File::delete(public_path('uploads/product/small/'.$productImage->image));
+            }
+
+            ProductImage::where('product_id', $id)->delete();
+        }
+
+        $product->delete();
+
+        $request->session()->flash('success', '상품삭제성공');
+
+        return response()->json([
+            'status' => true,
+            'message' => '상품삭제성공'
+        ]);
+
     }
 }
 
