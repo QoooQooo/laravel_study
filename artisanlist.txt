@@ -103,3 +103,5 @@ php artisan make:migration alter_product_images_table
 php artisan migrate
 
 php artisan make:controller admin/ProductImageController
+
+php artisan make:controller FrontController

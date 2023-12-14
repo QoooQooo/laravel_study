@@ -12,6 +12,7 @@ use App\Http\Controllers\admin\ProductController;       // 관리자 프로덕�
 use App\Http\Controllers\admin\TempImagesController;    // 관리자 임시 이미지 컨트롤러
 use App\Http\Controllers\admin\SubCategoryController;   // 관리자 하위 카테고리 컨트롤러
 use App\Http\Controllers\admin\ProductSubCategoryController;       // 관리자 프로덕트 서브카테고리 불러오기컨트롤러
+use App\Http\Controllers\FrontController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,14 @@ use App\Http\Controllers\admin\ProductSubCategoryController;       // 관리자 
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+ */
+
+//프론트 첫 페이지 임시연결
+Route::get('/', [FrontController::class, 'index'])->name('front.home');
 
 
 //관리자 로그인 페이지 임시 연결설정
