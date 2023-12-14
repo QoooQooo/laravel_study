@@ -85,8 +85,30 @@
         			<!-- <li class="nav-item">
           				<a class="nav-link active" aria-current="page" href="index.php" title="Products">Home</a>
         			</li> -->
-
-					<li class="nav-item dropdown">
+                    @if (getCategories()->isNotEmpty())
+                    @foreach (getCategories() as $category )
+                    <li class="nav-item dropdown">
+						<button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ $category->name }}
+                        </button>
+                        @if ($category->sub_category->isNotEmpty())
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            @foreach ($category->sub_category as $subCategory)
+                            <li><a class="dropdown-item nav-link" href="#">{{ $subCategory->name }}</a></li>
+                            @endforeach
+                        </ul>
+                        @endif
+                        {{-- <ul class="dropdown-menu dropdown-menu-dark">
+							<li><a class="dropdown-item nav-link" href="#">Mobile</a></li>
+							<li><a class="dropdown-item nav-link" href="#">Tablets</a></li>
+							<li><a class="dropdown-item nav-link" href="#">Laptops</a></li>
+							<li><a class="dropdown-item nav-link" href="#">Speakers</a></li>
+							<li><a class="dropdown-item nav-link" href="#">Watches</a></li>
+						</ul> --}}
+                    @endforeach
+                    @endif
+					{{--
+                    <li class="nav-item dropdown">
 						<button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 							Electronics
 						</button>
@@ -98,6 +120,7 @@
 							<li><a class="dropdown-item nav-link" href="#">Watches</a></li>
 						</ul>
 					</li>
+
 					<li class="nav-item dropdown">
 						<button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 							Men's Fashion
@@ -137,7 +160,7 @@
 							<li><a class="dropdown-item" href="#">Air Coolers</a></li>
 						</ul>
 					</li>
-
+                    --}}
 
       			</ul>
       		</div>

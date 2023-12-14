@@ -57,6 +57,15 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="status">노출여부</label>
+                                <select name="showHome" id="showHome" class="form-control">
+                                    <option value="Yes">노출</option>
+                                    <option value="No">노출안함</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

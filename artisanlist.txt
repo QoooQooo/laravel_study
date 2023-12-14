@@ -105,3 +105,22 @@ php artisan migrate
 php artisan make:controller admin/ProductImageController
 
 php artisan make:controller FrontController
+
+php artisan make:migration alter_categories_table
+
+php artisan migrate
+
+php artisan make:migration alter_products_table
+
+composer require doctrine/dbal
+
+php artisan migrate
+
+php artisan make:migration alter_sub_categories_table
+
+//순서가 중요함.
+//1. 헬퍼파일 만들고
+//2. composer.json파일수정하고
+//3. composer dump-autoload 실행
+//4. 실행후 파일 생성하면 적용안됨. 그럴경우 파일 생성 및 수정후 재실행필요
+composer dump-autoload
