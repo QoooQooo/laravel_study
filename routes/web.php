@@ -25,11 +25,11 @@ use App\Http\Controllers\FrontController;
 |
 */
 
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
- */
+
+//Route::get('/', function () {
+//   return view('welcome');
+//});
+
 
 //프론트 첫 페이지 임시연결
 Route::get('/', [FrontController::class, 'index'])->name('front.home');

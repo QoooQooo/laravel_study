@@ -32,8 +32,9 @@
 
 	<link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/slick.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/slick-theme.css') }}" />
-	{{-- <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/video-js.css') }}" /> --}} {{-- 안씀 --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/style.css') }}" />
+
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/video-js.css') }}" /> --}} {{-- 안씀 --}}
 
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,69 +99,8 @@
                             @endforeach
                         </ul>
                         @endif
-                        {{-- <ul class="dropdown-menu dropdown-menu-dark">
-							<li><a class="dropdown-item nav-link" href="#">Mobile</a></li>
-							<li><a class="dropdown-item nav-link" href="#">Tablets</a></li>
-							<li><a class="dropdown-item nav-link" href="#">Laptops</a></li>
-							<li><a class="dropdown-item nav-link" href="#">Speakers</a></li>
-							<li><a class="dropdown-item nav-link" href="#">Watches</a></li>
-						</ul> --}}
                     @endforeach
                     @endif
-					{{--
-                    <li class="nav-item dropdown">
-						<button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-							Electronics
-						</button>
-						<ul class="dropdown-menu dropdown-menu-dark">
-							<li><a class="dropdown-item nav-link" href="#">Mobile</a></li>
-							<li><a class="dropdown-item nav-link" href="#">Tablets</a></li>
-							<li><a class="dropdown-item nav-link" href="#">Laptops</a></li>
-							<li><a class="dropdown-item nav-link" href="#">Speakers</a></li>
-							<li><a class="dropdown-item nav-link" href="#">Watches</a></li>
-						</ul>
-					</li>
-
-					<li class="nav-item dropdown">
-						<button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-							Men's Fashion
-						</button>
-						<ul class="dropdown-menu dropdown-menu-dark">
-							<li><a class="dropdown-item" href="#">Shirts</a></li>
-							<li><a class="dropdown-item" href="#">Jeans</a></li>
-							<li><a class="dropdown-item" href="#">Shoes</a></li>
-							<li><a class="dropdown-item" href="#">Watches</a></li>
-							<li><a class="dropdown-item" href="#">Perfumes</a></li>
-						</ul>
-					</li>
-					<li class="nav-item dropdown">
-						<button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-							Women's Fashion
-						</button>
-						<ul class="dropdown-menu dropdown-menu-dark">
-							<li><a class="dropdown-item" href="#">T-Shirts</a></li>
-							<li><a class="dropdown-item" href="#">Tops</a></li>
-							<li><a class="dropdown-item" href="#">Jeans</a></li>
-							<li><a class="dropdown-item" href="#">Shoes</a></li>
-							<li><a class="dropdown-item" href="#">Watches</a></li>
-							<li><a class="dropdown-item" href="#">Perfumes</a></li>
-						</ul>
-					</li>
-
-					<li class="nav-item dropdown">
-						<button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-							Appliances
-						</button>
-						<ul class="dropdown-menu dropdown-menu-dark">
-							<li><a class="dropdown-item" href="#">TV</a></li>
-							<li><a class="dropdown-item" href="#">Washing Machines</a></li>
-							<li><a class="dropdown-item" href="#">Air Conditioners</a></li>
-							<li><a class="dropdown-item" href="#">Vacuum Cleaner</a></li>
-							<li><a class="dropdown-item" href="#">Fans</a></li>
-							<li><a class="dropdown-item" href="#">Air Coolers</a></li>
-						</ul>
-					</li>
-                    --}}
 
       			</ul>
       		</div>
