@@ -3,16 +3,17 @@
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\admin\ProductImageController;  // 관리자 이미지 수정 컨트롤러
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\admin\HomeController;          // 관리자 홈 컨트롤러
 use App\Http\Controllers\admin\AdminLoginController;    // 관리자 로그인 컨트롤러
 use App\Http\Controllers\admin\BrandController;         // 관리자 브랜드 컨트롤러
 use App\Http\Controllers\admin\CategoryController;      // 관리자 카테고리 컨트롤러
 use App\Http\Controllers\admin\ProductController;       // 관리자 프로덕트 컨트롤러
+use App\Http\Controllers\admin\ProductImageController;  // 관리자 이미지 수정 컨트롤러
 use App\Http\Controllers\admin\TempImagesController;    // 관리자 임시 이미지 컨트롤러
 use App\Http\Controllers\admin\SubCategoryController;   // 관리자 하위 카테고리 컨트롤러
 use App\Http\Controllers\admin\ProductSubCategoryController;       // 관리자 프로덕트 서브카테고리 불러오기컨트롤러
-use App\Http\Controllers\FrontController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +32,10 @@ use App\Http\Controllers\FrontController;
 //});
 
 
-//프론트 첫 페이지 임시연결
+//프론트 첫 페이지 연결
 Route::get('/', [FrontController::class, 'index'])->name('front.home');
+
+Route::get('/shop', [ShopController::class, 'index'])->name('front.shop');
 
 
 //관리자 로그인 페이지 임시 연결설정

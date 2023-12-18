@@ -124,3 +124,5 @@ php artisan make:migration alter_sub_categories_table
 //3. composer dump-autoload 실행
 //4. 실행후 파일 생성하면 적용안됨. 그럴경우 파일 생성 및 수정후 재실행필요
 composer dump-autoload
+
+php artisan make:controller ShopController
