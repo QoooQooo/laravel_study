@@ -35,7 +35,9 @@ use App\Http\Controllers\admin\ProductSubCategoryController;       // 관리자 
 //프론트 첫 페이지 연결
 Route::get('/', [FrontController::class, 'index'])->name('front.home');
 
-Route::get('/shop', [ShopController::class, 'index'])->name('front.shop');
+Route::get('/shop/{categorySlug?}/{subCategorySlug?}', [ShopController::class, 'index'])->name('front.shop');
+
+//Route::get('/shop/{a?}/{b?}', [ShopController::class, 'index'])->name('front.shop');
 
 
 //관리자 로그인 페이지 임시 연결설정
