@@ -13,6 +13,7 @@ class ShopController extends Controller
     public function index(Request $request, $categorySlug = null, $subCategorySlug = null) {
         $categorySelected = "";
         $subCategorySelected = "";
+        $brandsArray = [];
 
         $categories = Category::orderBy('name', 'ASC')->with('sub_category')->where('status', '1')->get();
         $brands = Brand::orderBy('name', 'ASC')->where('status', '1')->get();
@@ -32,7 +33,34 @@ class ShopController extends Controller
             $subCategorySelected = $subCategory->id;
         }
 
-        $products = $products->orderBy('id', 'DESC');
+        if (!empty($request->get('brand'))) {
+            $brandsArray = explode(',', $request->get('brand'));
+            $products = $products->whereIn('brand_id', $brandsArray);
+        }
+
+        if ($request->get('price_max') != '' && $request->get('price_min') != '') {
+            if ($request->get('price_max') == 1000) {
+                $products = $products->whereBetween('price', [intval($request->get('price_min')), 1000000]);
+            } else {
+                $products = $products->whereBetween('price', [intval($request->get('price_min')), intval($request->get('price_max'))]);
+            }
+        }
+
+
+
+        switch($request->get('sort')){
+            case 'price_asc':
+                $products = $products->orderBy('price', 'ASC');
+                break;
+            case 'price_desc':
+                $products = $products->orderBy('price', 'DESC');
+                break;
+            default:
+                $products = $products->orderBy('id', 'DESC');
+                break;
+        }
+
+
         $products = $products->get();
 
         $data['categories'] = $categories;
@@ -40,6 +68,11 @@ class ShopController extends Controller
         $data['products'] = $products;
         $data['categorySelected'] = $categorySelected;
         $data['subCategorySelected'] = $subCategorySelected;
+        $data['brandsArray'] = $brandsArray;
+        $data['priceMin'] = intval($request->get('price_min'));
+        //$data['priceMax'] = intval($request->get('price_max'));
+        $data['priceMax'] = (intval($request->get('price_max')) == 0 ) ? 1000 : $request->get('price_max');
+        $data['sort'] = $request->get('sort');
 
         return view('front.shop', $data);
     }

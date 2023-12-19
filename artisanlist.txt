@@ -126,3 +126,9 @@ php artisan make:migration alter_sub_categories_table
 composer dump-autoload
 
 php artisan make:controller ShopController
+
+//artisan 관계없음
+//슬라이드바 참고 주소
+//http://ionden.com/a/plugins/ion.rangeSlider/demo.html
+
+

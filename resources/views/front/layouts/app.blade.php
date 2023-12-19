@@ -34,6 +34,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/slick-theme.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/style.css') }}" />
 
+    @yield('customCss')
+
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/video-js.css') }}" /> --}} {{-- 안씀 --}}
 
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -190,5 +192,8 @@ function myFunction() {
   }
 }
 </script>
+
+@yield('customJs')
+
 </body>
 </html>
