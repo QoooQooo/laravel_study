@@ -61,7 +61,8 @@ class ShopController extends Controller
         }
 
 
-        $products = $products->get();
+        //$products = $products->get();
+        $products = $products->paginate(3);
 
         $data['categories'] = $categories;
         $data['brands'] = $brands;

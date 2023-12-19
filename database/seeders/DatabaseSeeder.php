@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        \App\Models\Category::factory(50)->create();
+        //카테고리 목업데이터 생성
+        //\App\Models\Category::factory(50)->create();
+
+        //상품 목업데이터 생성
+        \App\Models\Product::factory(50)->create();
     }
 }
