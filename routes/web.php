@@ -35,7 +35,12 @@ use App\Http\Controllers\admin\ProductSubCategoryController;       // 관리자 
 //프론트 첫 페이지 연결
 Route::get('/', [FrontController::class, 'index'])->name('front.home');
 
+//상품 진열 페이지 연결
 Route::get('/shop/{categorySlug?}/{subCategorySlug?}', [ShopController::class, 'index'])->name('front.shop');
+
+//상품 상세 페이지 연결
+Route::get('/product/{slug}', [ShopController::class, 'product'])->name('front.product');
+
 
 //Route::get('/shop/{a?}/{b?}', [ShopController::class, 'index'])->name('front.shop');
 
