@@ -152,7 +152,7 @@
                                 </div>
                             </div>
                             <div class="card-body text-center mt-3">
-                                <a class="h6 link" href="product.php">{{ $product->title }}</a>
+                                <a class="h6 link" href="{{ route('front.product', $product->slug) }}">{{ $product->title }}</a>
                                 <div class="price mt-2">
                                     <span class="h5"><strong>{{ $product->price }}</strong></span>
                                     @if ($product->compare_price > 0)
@@ -167,19 +167,6 @@
 
                     <div class="col-md-12 pt-5">
                         {{ $products->withQueryString()->links() }}
-                        {{-- <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </nav> --}}
                     </div>
                 </div>
             </div>

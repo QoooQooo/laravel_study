@@ -2,6 +2,7 @@
 
 @section('customCss')
 <link rel="stylesheet" href="{{ asset('admin-assets/plugins/summernote/summernote-bs4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('admin-assets/plugins/select2/css/select2.min.css') }}">
 @endsection
 
 @section('content')
@@ -146,6 +147,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h2 class="h4 mb-3">Related products</h2>
+                            <div class="mb-3">
+                                <select multiple class="related-product w-100" name="related_products[]" id="related_products">
+                                    @if (!empty($relatedProducts))
+                                    @foreach ($relatedProducts as $relatedProduct)
+                                    <option selected value="{{ $relatedProduct->id }}">{{ $relatedProduct->title }}</option>
+                                    @endforeach
+                                    @endif
+                                </select>
+                                <p class="error"></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card mb-3">
@@ -230,12 +246,28 @@
 
 @section('customJs')
 <script src="{{ asset('admin-assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
+<script src="{{ asset('admin-assets/plugins/select2/js/select2.min.js') }}"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
     $(".summernote").summernote({
         height: 300
     });
+});
+
+$('.related-product').select2({
+    ajax: {
+        url: '{{ route("products.getProducts") }}',
+        dataType: 'json',
+        tags: true,
+        multiple: true,
+        minimumInputLength: 3,
+        processResults: function(data){
+            return {
+                results: data.tags
+            };
+        }
+    }
 });
 
 $("#title").change(function(){

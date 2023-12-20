@@ -96,6 +96,9 @@ Route::group(['prefix' => 'admin'], function(){
         Route::put('/products/{products}', [ProductController::class, 'update'])->name('products.update');
         Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.delete');
 
+        //상품등록시 관계상품목록찾기
+        Route::get('/get-products', [ProductController::class, 'getProducts'])->name('products.getProducts');
+
         //프로덕트 페이지에서 카테고리 선택에 따른 하위 카테고리 불러오기 연결설정
         Route::get('/product-subcategories', [ProductSubCategoryController::class, 'index'])->name('product-subcategories.index');
 

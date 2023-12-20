@@ -83,6 +83,8 @@ class ProductController extends Controller
             $product->sub_category_id = $request->sub_category;
             $product->brand_id = $request->brands;
             $product->is_featured = $request->is_featured;
+            //$product->related_products = $request->related_products;
+            $product->related_products = (!empty($request->related_products)) ? implode(',', $request->related_products) : '';
             $product->save();
 
             //갤러리 이미지 저장하기
@@ -150,12 +152,21 @@ class ProductController extends Controller
         $brands = Brand::orderBy('name', 'ASC')->get();
         $productImages = ProductImage::where('product_id',$product->id)->get();
 
+        //관계상품목록생성
+        $relatedProducts = [];
+        if ($product->related_products != '') {
+            $productArray = explode(',', $product->related_products);
+            $relatedProducts = Product::whereIn('id', $productArray)->get();
+        }
+
         $data = [];
         $data['product'] = $product;
         $data['categories'] = $categories;
         $data['subCategories'] = $subCategories;
         $data['brands'] = $brands;
         $data['productImages'] = $productImages;
+        $data['relatedProducts'] = $relatedProducts;
+
 
         return view('admin.products.edit', $data);
     }
@@ -202,6 +213,8 @@ class ProductController extends Controller
             $product->sub_category_id = $request->sub_category;
             $product->brand_id = $request->brands;
             $product->is_featured = $request->is_featured;
+            //$product->related_products = $request->related_products;
+            $product->related_products = (!empty($request->related_products)) ? implode(',', $request->related_products) : '';
             $product->save();
 
 
@@ -250,6 +263,28 @@ class ProductController extends Controller
             'message' => '상품삭제성공'
         ]);
 
+    }
+
+    public function getProducts(Request $request){
+
+        $tempProduct = [];
+        if ($request->term != "") {
+            $products = Product::where('title','like','%'.$request->term.'%')->get();
+
+            if ($products != null) {
+                foreach ($products as $product) {
+                    $tempProduct[] = array(
+                        'id' => $product->id,
+                        'text' => $product->title
+                    );
+                }
+            }
+        }
+
+        return response()->json([
+            'tags' => $tempProduct,
+            'status' => true
+        ]);
     }
 }
 
