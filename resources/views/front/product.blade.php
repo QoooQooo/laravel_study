@@ -23,18 +23,24 @@
             <div class="col-md-5">
                 <div id="product-carousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner bg-light">
-                        <div class="carousel-item">
-                            <img class="w-100 h-100" src="images/product-1.jpg" alt="Image">
+                        @if (!empty($product->product_images->product_id))
+                        @foreach ($product->product_images as $key => $productImage )
+                        <div class="carousel-item {{ ($key == 0) ? 'active' : '' }}">
+                            @php
+                                $exists = file_exists('uploads/product/small/'.$productImage->image);
+                            @endphp
+                            @if ($exists)
+                            <img class="w-100 h-100" src="{{ asset('uploads/product/large/'.$productImage->image) }}" alt="Image">
+                            @else
+                            <img class="w-100 h-100" src="{{ asset('admin-assets/img/default-150x150.png') }}" alt="Image">
+                            @endif
                         </div>
+                        @endforeach
+                        @else
                         <div class="carousel-item active">
-                            <img class="w-100 h-100" src="images/product-2.jpg" alt="Image">
+                            <img class="w-100 h-100" src="{{ asset('admin-assets/img/default-150x150.png') }}" alt="Image">
                         </div>
-                        <div class="carousel-item">
-                            <img class="w-100 h-100" src="images/product-3.jpg" alt="Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="w-100 h-100" src="images/product-4.jpg" alt="Image">
-                        </div>
+                        @endif
                     </div>
                     <a class="carousel-control-prev" href="#product-carousel" data-bs-slide="prev">
                         <i class="fa fa-2x fa-angle-left text-dark"></i>
@@ -64,7 +70,7 @@
 
                     <h2 class="price ">{{ $product->price }}</h2>
 
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis officiis dolor aut nihil iste porro ullam repellendus inventore voluptatem nam veritatis exercitationem doloribus voluptates dolorem nobis voluptatum qui, minus facere.</p>
+                    {!! $product->short_description !!}
                     <a href="cart.php" class="btn btn-dark"><i class="fas fa-shopping-cart"></i> &nbsp;ADD TO CART</a>
                 </div>
             </div>
@@ -84,10 +90,10 @@
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                            {{ $product->description }}
+                            {!! $product->description !!}
                         </div>
                         <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit, incidunt blanditiis suscipit quidem magnam doloribus earum hic exercitationem. Distinctio dicta veritatis alias delectus quaerat, quam sint ab nulla aperiam commodi. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit, incidunt blanditiis suscipit quidem magnam doloribus earum hic exercitationem. Distinctio dicta veritatis alias delectus quaerat, quam sint ab nulla aperiam commodi. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit, incidunt blanditiis suscipit quidem magnam doloribus earum hic exercitationem. Distinctio dicta veritatis alias delectus quaerat, quam sint ab nulla aperiam commodi.</p>
+                            {!! $product->shopping_returns !!}
                         </div>
                         <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
 

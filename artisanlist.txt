@@ -138,3 +138,7 @@ php artisan db:seed
 
 // slug를 쓰는 이유 사용자 검색 최적화를 위하여
 // slug 함수 대체 하기 preg_replace("/\s+/", "-", "테스트 라라벨 프레임워크")
+
+php artisan make:migration alter_products_table
+
+php artisan migrate
