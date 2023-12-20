@@ -36,6 +36,8 @@
 
     @yield('customCss')
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/video-js.css') }}" /> --}} {{-- 안씀 --}}
 
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -178,7 +180,14 @@
 <script src="{{ asset('front-assets/js/lazyload.17.6.0.min.js') }}"></script>
 <script src="{{ asset('front-assets/js/slick.min.js') }}"></script>
 <script src="{{ asset('front-assets/js/custom.js') }}"></script>
-<script>
+
+<script type="text/javascript">
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 window.onscroll = function() {myFunction()};
 
 var navbar = document.getElementById("navbar");

@@ -142,3 +142,9 @@ php artisan db:seed
 php artisan make:migration alter_products_table
 
 php artisan migrate
+
+//장바구니 라이브러리 사용법 참고
+//https://github.com/hardevine/LaravelShoppingcart
+composer require hardevine/shoppingcart
+
+php artisan make:controller CartController

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\admin\HomeController;          // 관리자 홈 컨트롤러
@@ -36,17 +37,16 @@ use App\Http\Controllers\admin\ProductSubCategoryController;       // 관리자 
 Route::get('/', [FrontController::class, 'index'])->name('front.home');
 
 //상품 진열 페이지 연결
+//Route::get('/shop/{a?}/{b?}', [ShopController::class, 'index'])->name('front.shop');
 Route::get('/shop/{categorySlug?}/{subCategorySlug?}', [ShopController::class, 'index'])->name('front.shop');
+
 
 //상품 상세 페이지 연결
 Route::get('/product/{slug}', [ShopController::class, 'product'])->name('front.product');
 
-
-//Route::get('/shop/{a?}/{b?}', [ShopController::class, 'index'])->name('front.shop');
-
-
-//관리자 로그인 페이지 임시 연결설정
-//Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin.login');
+//장바구니 연결
+Route::get('/cart', [CartController::class, 'cart'])->name('front.cart');
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('front.addToCart');
 
 
 //관리자 페이지 연결설정
