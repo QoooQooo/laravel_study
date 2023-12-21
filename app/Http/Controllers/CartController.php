@@ -86,12 +86,31 @@ class CartController extends Controller
     public function updateCart(Request $request) {
         $rowId = $request->rowId;
         $qty = $request->qty;
-        Cart::update($rowId, $qty);
 
-        $message = "장바구니 수정성공";
-        session()->flash('success', $message);
+        $itemInfo = Cart::get($rowId);
+
+        $product = Product::find($itemInfo->id);
+
+        if ($product->track_qty == 'Yes') {
+            if ($qty <= $product->qty) {
+                Cart::update($rowId, $qty);
+                $message = "장바구니 수정성공";
+                $status = true;
+                session()->flash('success', $message);
+            } else {
+                $message = "상품의 수량(".$qty.")이 부족합니다";
+                $status = false;
+                session()->flash('error', $message);
+            }
+        } else {
+            Cart::update($rowId, $qty);
+            $message = "장바구니 수정성공";
+            $status = true;
+            session()->flash('success', $message);
+        }
+
         return response()->json([
-            'status' => true,
+            'status' => $status,
             'message' => $message
         ]);
     }
