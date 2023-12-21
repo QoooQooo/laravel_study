@@ -151,7 +151,7 @@ function updateCart(rowId, qty) {
             if (response.status == true) {
                 window.location.href= '{{ route("front.cart") }}';
             }
-        };
+        }
     });
 }
 
