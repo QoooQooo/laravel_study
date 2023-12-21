@@ -44,9 +44,10 @@ Route::get('/shop/{categorySlug?}/{subCategorySlug?}', [ShopController::class, '
 //상품 상세 페이지 연결
 Route::get('/product/{slug}', [ShopController::class, 'product'])->name('front.product');
 
-//장바구니 연결
+//장바구니
 Route::get('/cart', [CartController::class, 'cart'])->name('front.cart');
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('front.addToCart');
+Route::post('/update-cart', [CartController::class, 'updateCart'])->name('front.updateCart');
 
 
 //관리자 페이지 연결설정
