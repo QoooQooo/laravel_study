@@ -9,8 +9,8 @@
     <div class="container">
         <div class="light-font">
             <ol class="breadcrumb primary-color mb-0">
-                <li class="breadcrumb-item"><a class="white-text" href="#">Home</a></li>
-                <li class="breadcrumb-item"><a class="white-text" href="#">Shop</a></li>
+                <li class="breadcrumb-item"><a class="white-text" href="{{ route('front.home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a class="white-text" href="{{ route('front.shop') }}">Shop</a></li>
                 <li class="breadcrumb-item">Cart</li>
             </ol>
         </div>
@@ -38,6 +38,7 @@
             </div>
             @endif
 
+            @if (Cart::count() > 0)
             <div class="col-md-8">
                 <div class="table-responsive">
                     <table class="table" id="cart">
@@ -54,7 +55,7 @@
                             @if ($cartContent)
                             @foreach ($cartContent as $item)
                             <tr>
-                                <td>
+                                <td class="text-start">
                                     <div class="d-flex align-items-center">
 
                                         @if (!empty($item->options->productImage->image))
@@ -93,7 +94,7 @@
                                     {{ $item->price * $item->qty }}
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteItem('{{ $item->rowId }}');"><i class="fa fa-times"></i></button>
                                 </td>
                             </tr>
                             @endforeach
@@ -130,6 +131,15 @@
                     <button class="btn btn-dark" type="button" id="button-addon2">Apply Coupon</button>
                 </div> --}}
             </div>
+            @else
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-center align-item-center">
+                        <h4>장바구니가 비었습니다</h4>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </section>
@@ -173,6 +183,21 @@ function updateCart(rowId, qty) {
     });
 }
 
+function deleteItem(rowId) {
+    if (confirm('장바구니에서 비우시겠습니까?')) {
+        $.ajax({
+            url: '{{ route("front.deleteItem.cart") }}',
+            type: 'post',
+            data: {rowId:rowId},
+            dataType: 'json',
+            success: function(response) {
+                if (response.status == true) {
+                    window.location.href= '{{ route("front.cart") }}';
+                }
+            }
+        });
+    }
+}
 </script>
 
 @endsection

@@ -48,6 +48,7 @@ class CartController extends Controller
 
                 $status = true;
                 $message = $product->title.'을(를) 장바구니에 등록하였습니다.';
+                session()->flash('success', $message);
 
             } else {
                 $status = false;
@@ -56,7 +57,7 @@ class CartController extends Controller
 
         } else {
             //장바구니 비었을때
-            echo "장바구니가 비었습니다.";
+            //echo "장바구니가 비었습니다.";
             Cart::add(
                 $product->id,
                 $product->title,
@@ -66,6 +67,7 @@ class CartController extends Controller
             );
             $status = true;
             $message = $product->title.'을(를) 장바구니에 등록하였습니다.';
+            session()->flash('success', $message);
         }
 
         return response()->json([
@@ -109,6 +111,27 @@ class CartController extends Controller
             session()->flash('success', $message);
         }
 
+        return response()->json([
+            'status' => $status,
+            'message' => $message
+        ]);
+    }
+
+    public function deleteItem(Request $request) {
+
+        $itemInfo = Cart::get($request->rowId);
+        if ($itemInfo == null) {
+            $message = "해당 상품을 찾을 수 없슶니다";
+            $successError = "error";
+            $status = false;
+        } else {
+            $message = $itemInfo->name."을(를) 장바구니에서 비웠습니다.";
+            $successError = "success";
+            $status = true;
+            Cart::remove($request->rowId);
+        }
+
+        session()->flash($successError, $message);
         return response()->json([
             'status' => $status,
             'message' => $message
