@@ -148,3 +148,5 @@ php artisan migrate
 composer require hardevine/shoppingcart
 
 php artisan make:controller CartController
+
+php artisan make:controller AuthController
