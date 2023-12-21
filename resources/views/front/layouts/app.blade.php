@@ -109,7 +109,7 @@
       			</ul>
       		</div>
 			<div class="right-nav py-0">
-				<a href="cart.php" class="ml-3 d-flex pt-2">
+				<a href="{{ route('front.cart') }}" class="ml-3 d-flex pt-2">
 					<i class="fas fa-shopping-cart text-primary"></i>
 				</a>
 			</div>
@@ -199,6 +199,22 @@ function myFunction() {
   } else {
     navbar.classList.remove("sticky");
   }
+}
+
+function addToCart(id){
+    $.ajax({
+        url: '{{ route("front.addToCart") }}',
+        type: 'post',
+        data: {id:id},
+        dataType: 'json',
+        success: function(response) {
+            if (response.status == true) {
+                window.location.href="{{ route('front.cart') }}"
+            } else {
+                alert(response.message);
+            }
+        }
+    });
 }
 </script>
 

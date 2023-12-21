@@ -22,10 +22,41 @@ class CartController extends Controller
         }
 
         if (Cart::count() > 0) {
+            /* echo "장바구니에 같은 물건이 있습니다.";
+            $status = false;
+            $message = "장바구니에 같은 물건이 있습니다."; */
+
+            $cartContent = Cart::content();
+            $productAlreadyExist = false;
+
+            //print_r($cartContent);
+
+            foreach ($cartContent as $item) {
+                if ($item->id == $product->id) {
+                    $productAlreadyExist = true;
+                }
+            }
+
+            if ($productAlreadyExist == false) {
+                Cart::add(
+                    $product->id,
+                    $product->title,
+                    1,
+                    $product->price,
+                    ['productImage' => (!empty($product->product_images->first()) ? $product->product_images->first() : '')]
+                );
+
+                $status = true;
+                $message = $product->title.'을(를) 장바구니에 등록하였습니다.';
+
+            } else {
+                $status = false;
+                $message = $product->title.'는(은) 장바구니에 있습니다';
+            }
 
         } else {
             //장바구니 비었을때
-
+            echo "장바구니가 비었습니다.";
             Cart::add(
                 $product->id,
                 $product->title,
@@ -33,13 +64,22 @@ class CartController extends Controller
                 $product->price,
                 ['productImage' => (!empty($product->product_images->first()) ? $product->product_images->first() : '')]
             );
+            $status = true;
+            $message = $product->title.'을(를) 장바구니에 등록하였습니다.';
         }
+
+        return response()->json([
+            'status' => $status,
+            'message' => $message
+        ]);
 
     }
 
     public function cart() {
+        $cartContent = Cart::content();
 
+        $data['cartContent'] = $cartContent;
 
-        //return view('front.cart');
+        return view('front.cart', $data);
     }
 }
