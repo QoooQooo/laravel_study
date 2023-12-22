@@ -51,10 +51,23 @@ Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('front.a
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('front.updateCart');
 Route::post('/delete-item', [CartController::class, 'deleteItem'])->name('front.deleteItem.cart');
 
+//계정관련 페이지 연결
+Route::group(['prefix' => 'account'], function(){
 
-//회원가입연결
-Route::get('/register', [AuthController::class, 'register'])->name('account.register');
+    Route::group(['middleware' => 'guest'], function(){
 
+        //로그인 페이지 연결
+        Route::get('/login', [AuthController::class, 'login'])->name('account.login');
+
+        //회원가입연결
+        Route::get('/register', [AuthController::class, 'register'])->name('account.register');
+        Route::post('/process-register', [AuthController::class, 'processRegister'])->name('account.processRegister');
+
+    });
+});
+
+
+/*********************************************************************************************/
 
 //관리자 페이지 연결설정
 Route::group(['prefix' => 'admin'], function(){
