@@ -135,7 +135,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body d-flex justify-content-center align-item-center">
-                        <h4>장바구니가 비었습니다</h4>
+                        {{-- <h4>장바구니가 비었습니다</h4> --}}
+                        {{-- <input type="button" onclick="IfmUrlGet()" value="주소가져오기"></button> --}}
+                        <iframe name="Ifrm" id="Ifrm" width="1600" height="1000"  scrolling ="no" src="https://example-app5.nayanet.co.kr/border.php"></iframe>
+                        {{-- <iframe name="Ifrm" id="Ifrm" width="1200" height="700" src="https://example-app5.nayanet.co.kr/contents/P4ESNQ/pc/01/01.html"></iframe> --}}
+                        {{-- <iframe name="Ifrm" id="Ifrm" width="1200" height="700" src="https://example-app6.nayanet.co.kr/contents/P4ESNQ/pc/01/01.html"></iframe> --}}
+                        {{-- <iframe name="Ifrm" id="Ifrm" width="1200" height="700" src="https://cont0.esangedu.kr/contents/VSBUW0/01/1001.html"></iframe> --}}
                     </div>
                 </div>
             </div>
@@ -198,6 +203,56 @@ function deleteItem(rowId) {
         });
     }
 }
+
+function IfmGet(){
+    //var element = document.getElementById("Ifrm").contentWindow.window.location.href;
+    var element2 = document.getElementById("Ifrm").contentWindow;
+	alert(element2.outerHTML);
+}
+
+/* const invocation = new XMLHttpRequest();
+const url = 'https://example-app5.nayanet.co.kr';
+
+function callOtherDomain() {
+  if (invocation) {
+    xhr.open('GET', url);
+    xhr.onreadystatechange = someHandler;
+    xhr.send();
+  }
+} */
+
+var child = document.getElementById('Ifrm');
+function IfmUrlGet(){
+    //window.postMessage( "readurl", url);
+    var msg = "readUrl";
+    child.contentWindow.postMessage( msg, 'https://example-app5.nayanet.co.kr' );
+}
+
+//$('#Ifrm').bind('load',IfmUrlGet());
+
+// 메시지 수신 받는 eventListener 등록
+window.addEventListener( 'message', receiveMsgFromChild );
+
+// 자식으로부터 메시지 수신
+function receiveMsgFromChild( e ) {
+    console.log( '자식으로부터 받은 메시지 ', e.data );
+    //alert(e.data);
+}
+
+//setInterval(IfmUrlGet,3000);
+
+/* $('#Ifrm').bind({
+    click:function(){
+        IfmUrlGet();
+    }
+}) */
+
+/* $(function() {
+    $('#Ifrm').bind("load click", IfmUrlGet());
+}); */
+
+//$('#Ifrm').bind('load click', IfmUrlGet());
+
 </script>
 
 @endsection
