@@ -59,6 +59,11 @@ class AuthController extends Controller
         if ($validator->passes()) {
 
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+
+                if (session()->has('url.intended')) {
+                    return redirect(session()->get('url.intended'));
+                }
+
                 return redirect()->route('account.profile');
             } else {
                 //session()->flash('error', '이메일이나 비밀번호를 확인해 주세요');

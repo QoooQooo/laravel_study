@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;   //Cart 라이브러리 호출
 
 class CartController extends Controller
@@ -136,5 +137,28 @@ class CartController extends Controller
             'status' => $status,
             'message' => $message
         ]);
+    }
+
+    public function checkout()
+    {
+        if (Cart::count() == 0) {
+            return redirect()->route('front.cart');
+        }
+
+        if (Auth::check() == false) {
+
+            if ( !session()->has('url.intended')) {
+                session([
+                    'url.intended' => url()->current()
+                ]);
+
+            }
+
+            return redirect()->route('account.login');
+        }
+
+        session()->forget('url.intended');
+
+        return view('front.checkout');
     }
 }

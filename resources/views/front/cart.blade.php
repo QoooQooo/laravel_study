@@ -122,7 +122,7 @@
                             <div>{{ Cart::subtotal() }}</div>
                         </div>
                         <div class="pt-5">
-                            <a href="login.php" class="btn-dark btn btn-block w-100">Proceed to Checkout</a>
+                            <a href="{{ route('front.checkout') }}" class="btn-dark btn btn-block w-100">Proceed to Checkout</a>
                         </div>
                     </div>
                 </div>
@@ -135,9 +135,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body d-flex justify-content-center align-item-center">
-                        {{-- <h4>장바구니가 비었습니다</h4> --}}
+                        <h4>장바구니가 비었습니다</h4>
                         {{-- <input type="button" onclick="IfmUrlGet()" value="주소가져오기"></button> --}}
-                        <iframe name="Ifrm" id="Ifrm" width="1600" height="1000"  scrolling ="no" src="https://example-app5.nayanet.co.kr/border.php"></iframe>
+                        {{-- <iframe name="Ifrm" id="Ifrm" width="1600" height="1000"  scrolling ="no" src="https://example-app5.nayanet.co.kr/border.php"></iframe> --}}
                         {{-- <iframe name="Ifrm" id="Ifrm" width="1200" height="700" src="https://example-app5.nayanet.co.kr/contents/P4ESNQ/pc/01/01.html"></iframe> --}}
                         {{-- <iframe name="Ifrm" id="Ifrm" width="1200" height="700" src="https://example-app6.nayanet.co.kr/contents/P4ESNQ/pc/01/01.html"></iframe> --}}
                         {{-- <iframe name="Ifrm" id="Ifrm" width="1200" height="700" src="https://cont0.esangedu.kr/contents/VSBUW0/01/1001.html"></iframe> --}}
