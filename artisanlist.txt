@@ -154,3 +154,13 @@ php artisan make:controller AuthController
 php artisan make:migration alter_users_table
 
 php artisan migrate
+
+php artisan make:migration create_counties_table
+
+php artisan migrate
+
+php artisan make:seeder CountrySeeder
+
+php artisan db:seed --class=CountrySeeder
+
+php artisan make:model Country
