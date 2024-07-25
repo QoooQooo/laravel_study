@@ -3,5 +3,7 @@ name: push Test
 on: [push]
 
 jobs:
-  steps:
+  test:
+    runs-on: aeicw_test
+    steps:
     - run: git pull
